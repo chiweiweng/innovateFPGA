@@ -18,7 +18,8 @@ NMS_THRESHOLD = 0.3
 x_pixel = 1280  # 640
 y_pixel = 720  # 720
 
-HOST = "http://192.168.1.4"
+HOSTR = "http://172.20.10.2"
+HOSTL = "http://172.20.10.3"
 
 
 # construct the argument parse
@@ -62,7 +63,8 @@ print(width, height)
 # Load the Caffe model
 net = cv2.dnn.readNetFromCaffe(args.prototxt, args.weights)
 
-r = requests.get("{}/high".format(HOST))
+r1 = requests.get("{}/high".format(HOSTR))
+r2 = requests.get("{}/high".format(HOSTL))
 
 while True:
     # Capture frame-by-frame
@@ -148,18 +150,23 @@ while True:
                     #object left
                     if center[0]<=(width/3):  
                         if center[1]<=(height/3):
-                            r = requests.get("{}/l2".format(HOST))
+                            r1 = requests.get("{}/high".format(HOSTR))
+                            r2 = requests.get("{}/stop".format(HOSTL))
                         else :
-                            r = requests.get("{}/l1".format(HOST))
+                            r1 = requests.get("{}/high".format(HOSTR))
+                            r2 = requests.get("{}/med".format(HOSTL))
                     #object right
                     elif center[0]>(width*2/3):   
                         if center[1]<=(height/3):
-                            r = requests.get("{}/r2".format(HOST))
+                            r1 = requests.get("{}/stop".format(HOSTR))
+                            r2 = requests.get("{}/high".format(HOSTL))
                         else :
-                            r = requests.get("{}/r1".format(HOST))
+                            r1 = requests.get("{}/med".format(HOSTR))
+                            r2 = requests.get("{}/high".format(HOSTL))
                     #object middle
                     else:
-                        r = requests.get("{}/cc".format(HOST))
+                        r1 = requests.get("{}/high".format(HOSTR))
+                        r2 = requests.get("{}/high".format(HOSTL))
                     
                     #print(r.status_code)  #200是有戳到
 
