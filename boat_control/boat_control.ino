@@ -8,8 +8,8 @@
 MDNSResponder mdns;
 
 // Replace with your network credentials
-const char* ssid = "wes";  //asdfg
-const char* password = "blablabla";  //12345678
+const char* ssid = "asdfg";  //asdfg
+const char* password = "12345678";  //12345678
 int imax = 180;
 int gear = 0; //0 for low, 1 for medium, 2 for high
 int sped = 0; // speed
